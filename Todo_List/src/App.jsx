@@ -1,30 +1,31 @@
-import React from "react";
-import AddTask from "./components/AddTask";
-import ShowTask from "./components/ShowTask";
+import AppName from "./components/AppName";
+import AddTodo from "./components/AddTodo";
+import TodoItems from "./components/TodoItems";
+import "./App.css";
 
-const todoItems=[
-  {
-    task:"go gym",
-    time:new Date().toLocaleDateString()
-  },
-  {
-    task:"go school",
-    time:new Date().toLocaleDateString()
-  },
-  {
-    task:"go home",
-    time:"right now"
-  }
-]
+function App() {
+  const todoItems = [
+    {
+      name: "Buy Milk",
+      dueDate: "4/10/2023",
+    },
+    {
+      name: "Go to College",
+      dueDate: "4/10/2023",
+    },
+    {
+      name: "Like this video",
+      dueDate: "right now",
+    },
+  ];
 
-const App = () => {
   return (
     <center className="todo-container">
-      <h2>OUR TODO LIST</h2>
-      <AddTask/>
-      <ShowTask todo={todoItems} />
+      <AppName />
+      <AddTodo />
+      <TodoItems todoItems={todoItems}></TodoItems>
     </center>
   );
-};
+}
 
 export default App;

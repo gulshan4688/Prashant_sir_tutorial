@@ -1,43 +1,5 @@
-* {
-  /* display: flex;/ */
-  /* justify-content: center; */
-  padding: 0;
-  margin: 0;
-}
-
-.outer {
-  border: 2px solid gray;
-  padding: 1rem;
-  width: 30rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.input {
-  width: 20rem;
-  height: 4rem;
-  border: 2px solid black;
-  box-shadow: inset;
-}
-
-button {
-  padding: 2rem;
-  margin: 1px 10px;
-  text-align: center;
-  font-size: large;
-  font-style: initial;
-}
-
-.btn {
-  display: flex;
-  flex-wrap: wrap; /* Allow buttons to wrap onto the next line */
-  gap: 10px; /* Add spacing between buttons */
-  justify-content: center; /* Center buttons horizontally */
-  align-items: center; /* Center buttons vertically */
+.calculator {
+  border: 1px solid rgba(90, 90, 90);
+  width: 200px;
+  border-radius: 5px;
 }
