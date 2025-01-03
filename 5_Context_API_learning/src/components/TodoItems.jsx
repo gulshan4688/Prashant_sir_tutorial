@@ -9,7 +9,10 @@ import { TodoItemsContext } from "../store/Todo-items-store";
 const TodoItems = () => {
   // const ContextObj = useContext(TodoItemsContext);
   // const todoItems=ContextObj.todoItems;
-  const {todoItems,handleDelete}=useContext(TodoItemsContext);
+  // useContext se jo bhi aya hai wo destructure kr liye hai
+  // humse galti ye ho rhi thi naming hum purane wali rakh rhe the naming appko jo .provider ke value mei pass hua 
+  // wahi naming rakhna hai 
+  const {todoItems,deleteItem}=useContext(TodoItemsContext);
   // console.log(todoItemsFromContext);
 
   return (
@@ -19,7 +22,7 @@ const TodoItems = () => {
           key={index}
           todoDate={item.date}
           todoName={item.task}
-          onClickDelete={handleDelete}
+          onClickDelete={deleteItem}
         ></TodoItem>
       ))}
     </div>

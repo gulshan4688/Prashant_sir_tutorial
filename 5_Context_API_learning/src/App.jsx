@@ -39,15 +39,13 @@ function App() {
     <TodoItemsContext.Provider
       value={{
         todoItems: todoItems,
-        addNewItem:addNewItem,
-        deleteItem:deleteItem,
+        addNewItem: addNewItem,
+        deleteItem: deleteItem,
       }}
     >
+      {/* we removed all the prop which were being passed bcoz we will use useContext */}
       <center className="todo-container">
         <AppName />
-        {/* // AddTodo ki responsibilty hai task aur date add krna so whai newtask aur newDate lake dega 
-      // yaha pe dhyan dene ki baat hai ki handleNewItem ko upar define kiya aur onNewItem ko pass kr diya as a prop name
-      //  humne yaha par galti yeh ki thi ki handleNewItem upar define krke niche bracket ke andar onclick pass kr diya tha  */}
         <AddTodo />
         <WelcomeMess />
         <TodoItems />
