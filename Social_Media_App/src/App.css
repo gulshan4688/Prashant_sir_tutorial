@@ -1,0 +1,31 @@
+.app-container {
+  display: flex;
+}
+
+.content {
+  display: inline-block;
+  width: 100%;
+}
+.sidebar {
+  height: 100vh;
+}
+.post-card {
+  margin: 10px 50px;
+  width: 38rem;
+}
+.createPost-container {
+  border: 2px solid rgb(234, 226, 226);
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 10px 300px;
+}
+.like&delete {
+  display: flex;
+  justify-content: space-between; /* Push items to opposite sides */
+  align-items: center; /* Align items vertically */
+  padding: 10px; /* Optional for spacing */
+}
+
+.deleteIcon-pos {
+  cursor: pointer; /* Makes it clear the delete icon is clickable */
+}
