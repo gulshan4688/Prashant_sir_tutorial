@@ -8,7 +8,7 @@ const SideBar = ({selectedTab,setSelectedTab}) => {
   return (
     <div
       className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark sidebar"
-      style={{ width: "280px" }}
+      style={{ width: "180px" }}
     >
       <a
         href="/"
@@ -22,6 +22,7 @@ const SideBar = ({selectedTab,setSelectedTab}) => {
       <hr />
       <ul className="nav nav-pills flex-column mb-auto">
         <li className="nav-item" onClick={()=>handleOnClick('Home')} >
+                                          {/* jab bhi is list pe click karenge selcted tab mei Home insert ho jauyega  */}
           <a href="#" className={`nav-link text-white ${selectedTab==='Home' && 'active' } `} aria-current="page">
             <svg className="bi pe-none me-2" width="16" height="16">
               <use xlinkHref="#home"></use>
@@ -30,6 +31,7 @@ const SideBar = ({selectedTab,setSelectedTab}) => {
           </a>
         </li>
         <li  onClick={()=>handleOnClick('Create post')}  >
+                      {/* jab bhi is list pe click karenge selcted tab mei Home insert ho jauyega  */}
           <a href="#" className={`nav-link text-white ${selectedTab==='Create post' && 'active' } `}>
             <svg className="bi pe-none me-2" width="16" height="16">
               <use xlinkHref="#speedometer2"></use>

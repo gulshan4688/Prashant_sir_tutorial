@@ -3,11 +3,11 @@ import React, { useRef } from "react";
 const AddTodo = ({ onNewItem }) => {
   // const [task, setTask] = useState("");
   // const [date, setDate] = useState("");
-  // pehle humlog state define krte the jisme hota ye tha ki ek key press pe vlaue update hota rehta tha lein useref mei form bayenge aur input tag se ref lenge aur handleSubmit butotn mei laga denge jisse jo submit hone pe update hoga 
-  // 1---------> yaha humne declare kiya 
+  // pehle humlog state define krte the jisme hota ye tha ki ek key press pe vlaue update hota rehta tha lein useref mei form bayenge aur input tag se ref lenge aur handleSubmit butotn mei laga denge jisse jo submit hone pe update hoga
+  // 1---------> yaha humne declare kiya
   const refTask = useRef();
   const refDate = useRef();
-  // const handleTask = (event) => {
+  // const handleTask = (ev ent) => {
   //   // setTask(event.target.value);
   //   setTask(refTask);
   // };
@@ -19,13 +19,13 @@ const AddTodo = ({ onNewItem }) => {
     // pehle ye button onNewItem mei add krta tha ab ye submit karega
 
     event.preventDefault();
-    // 3-------------> yaha se uski value note ki 
-    const refTaskValue=refTask.current.value;
-    const refDateValue=refDate.current.value;
+    // 3-------------> yaha se uski value note ki
+    const refTaskValue = refTask.current.value;
+    const refDateValue = refDate.current.value;
     // console.log(`${refTaskValue} and ${refDateValue}`);
-    // 4------------> fir usko jo method as a prop pass hua tha usme bhej denge 
+    // 4------------> fir usko jo method as a prop pass hua tha usme bhej denge
     onNewItem(refTaskValue, refDateValue);
-    // pehle hum ye niche wala kr rhe the joki Reference ko pass krna kehte hai but hume to value pass krna hai isliye vlaue ko pehle store kiye fir usko pass kiye jaise ki upar 
+    // pehle hum ye niche wala kr rhe the joki Reference ko pass krna kehte hai but hume to value pass krna hai isliye vlaue ko pehle store kiye fir usko pass kiye jaise ki upar
     // onNewItem(refTask, refDate);
     // jab humne value bhej di to dono task aur date ko empty kr do
     // refTask = '';
@@ -44,7 +44,7 @@ const AddTodo = ({ onNewItem }) => {
               placeholder="Enter Todo Here"
               // onChange={handleTask}
               // value={task}
-              // 2-------------> yaha humne usko tag mei lagaya 
+              // 2-------------> yaha humne usko tag mei lagaya
               ref={refTask}
             />
           </div>
@@ -53,7 +53,7 @@ const AddTodo = ({ onNewItem }) => {
               type="date"
               // onChange={handleDate}
               // value={date}
-              // 2-------------> yaha humne usko tag mei lagaya 
+              // 2-------------> yaha humne usko tag mei lagaya
               ref={refDate}
             />
           </div>

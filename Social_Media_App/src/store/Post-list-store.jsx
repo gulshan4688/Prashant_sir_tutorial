@@ -1,55 +1,72 @@
-import { createContext, useReducer } from "react";
+import { createContext, useId, useReducer } from "react";
 const DEFAULT_CONTEXT = {
   postList: [],
   addPost: () => {},
   deletePost: () => {},
+  addInitialPost: () => {},
 };
 export const PostList = createContext(DEFAULT_CONTEXT);
-const postListReducer = (currPostList, action) => {
-  return currPostList;
-};
-// THE MEHTODS----------------->
-const addPost = () => {};
-const deletePost = () => {};
 
+const postListReducer = (currPostList, action) => {
+  let newPostList = currPostList;
+  if (action.type === "DELETE_POST") {
+    newPostList = currPostList.filter(
+      (post) => post.id !== action.payload.postID
+    );
+  } else if (action.type === "ADD_POST") {
+    newPostList = [action.payload, ...currPostList];
+    // in the above line we say that all our data is stored in payload so for now assume newPostList as the action.paylaod and add it to the currPostList using the spread operator
+  } else if (action.type === "ADD_INITIAL_POST") {
+    newPostList = action.payload.posts;
+  }
+  return newPostList;
+};
 const PostListProvider = ({ children }) => {
-  const [postList, dispatchPostList] = useReducer(
-    postListReducer,
-    DEFAULT_POST_LIST
-  );
+  const [postList, dispatchPostList] = useReducer(postListReducer, []);
+  // THE MEHTODS----------------->
+  const addPost = (userId, postTitle, postBody, reactions, tags) => {
+    // console.log(`${userId} ${postTitle} `);
+    // just like we implemented delete post we will implement addPost
+    dispatchPostList({
+      type: "ADD_POST",
+      payload: {
+        id: Date.now(),
+        userID: userId,
+        title: postTitle,
+        body: postBody,
+        reactions: reactions,
+        tags: tags,
+      },
+    });
+  };
+  const addInitialPost = (posts) => {
+    // for adding post from fetch method
+    dispatchPostList({
+      type: "ADD_INITIAL_POST",
+      payload: {
+        posts,
+      },
+    });
+  };
+  const deletePost = (postID) => {
+    // console.log(`delete post clicked with post id ${postID} `);
+    // bahut hua console log , ab hum karenge real action that is real defination of deletePost
+    dispatchPostList({
+      // contain 2 things action type and payload
+      type: "DELETE_POST",
+      payload: { postID },
+    });
+  };
+
   return (
     // previously we were passing a default value initiaslised at the top
-    <PostList.Provider value={{ postList, addPost, deletePost }}>
+    <PostList.Provider
+      value={{ postList, addPost, deletePost, addInitialPost }}
+    >
       {children}
     </PostList.Provider>
   );
 };
 // THE DEFAULT VALUE--------------->
-const DEFAULT_POST_LIST = [
-  {
-    id: "1",
-    title: "Exploring JavaScript",
-    body: "JavaScript is a versatile programming language used for web development.",
-    reactions: 150,
-    userID: "user123",
-    tags: ["JavaScript", "Web Development", "Programming"],
-  },
-  {
-    id: "2",
-    title: "Understanding React",
-    body: "React is a popular library for building user interfaces in JavaScript.",
-    reactions: 200,
-    userID: "user456",
-    tags: ["React", "Frontend", "UI Development"],
-  },
-  {
-    id: "3",
-    title: "CSS Grid Guide",
-    body: "CSS Grid simplifies the process of creating complex web layouts.",
-    reactions: 120,
-    userID: "user789",
-    tags: ["CSS", "Web Design", "Layouts"],
-  },
-];
 
 export default PostListProvider;

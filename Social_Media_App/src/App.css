@@ -29,3 +29,7 @@
 .deleteIcon-pos {
   cursor: pointer; /* Makes it clear the delete icon is clickable */
 }
+.wrap_class{
+  display: flex;
+  flex-wrap: wrap;
+}
