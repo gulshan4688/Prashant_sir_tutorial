@@ -1,30 +1,47 @@
 import React, { useContext, useRef } from "react";
 import { PostList } from "../store/Post-list-store";
 
-const CreatePost = () => {
-  const {addPost}=useContext(PostList);
+const CreatePost = (post) => {
+  const { addPost } = useContext(PostList);
   const userIdElem = useRef();
   const postTitleElem = useRef();
   const postBodyElem = useRef();
   const reactionsElem = useRef();
   const tagsElem = useRef();
-  const handleSubmit=(event)=>{
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const userId=userIdElem.current.value;
-    const postTitle=postTitleElem.current.value;
-    const postBody=postBodyElem.current.value;
-    const reactions=reactionsElem.current.value;
-    const tags=tagsElem.current.value.split(/(\s+)/);
-    userIdElem.current.value="";
-    postTitleElem.current.value="";
-    postBodyElem.current.value="";
-    reactionsElem.current.value="";
-    tagsElem.current.value="";
-    addPost(userId, postTitle, postBody, reactions, tags);
-  }
+    const userId = userIdElem.current.value;
+    const postTitle = postTitleElem.current.value;
+    const postBody = postBodyElem.current.value;
+    const reactions = reactionsElem.current.value;
+    const tags = tagsElem.current.value.split(/(\s+)/);
+    userIdElem.current.value = "";
+    postTitleElem.current.value = "";
+    postBodyElem.current.value = "";
+    reactionsElem.current.value = "";
+    tagsElem.current.value = "";
+
+    fetch("https://dummyjson.com/posts/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      // iske andar wo data hai jo server pe humlog bhejna chahte hai taki wo id bana sake iske related
+      body: JSON.stringify({
+        userId: userId,
+        title: postTitle,
+        body: postBody,
+        reactions: reactions,
+        tags: tags,
+      }),
+    })
+      .then((res) => res.json())
+      .then((post) => {
+        addPost(post);
+      });
+    // addPost(post); // yaha isko post milega baaki sab props ki jagah
+  };
   return (
     <div className="createPost-container">
-      <form onSubmit={handleSubmit} >
+      <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="userId" className="form-label">
             Enter Your user Id
@@ -80,7 +97,7 @@ const CreatePost = () => {
           </label>
           <input
             type="tags"
-            ref={tagsElem} 
+            ref={tagsElem}
             className="form-control"
             id="tags"
             placeholder="Enter Your tags with spaces"

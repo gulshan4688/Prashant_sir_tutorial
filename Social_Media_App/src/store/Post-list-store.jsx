@@ -1,9 +1,9 @@
-import { createContext, useId, useReducer } from "react";
+import { createContext, useEffect, useId, useReducer, useState } from "react";
 const DEFAULT_CONTEXT = {
   postList: [],
+  fetching: false,
   addPost: () => {},
   deletePost: () => {},
-  addInitialPost: () => {},
 };
 export const PostList = createContext(DEFAULT_CONTEXT);
 
@@ -23,20 +23,16 @@ const postListReducer = (currPostList, action) => {
 };
 const PostListProvider = ({ children }) => {
   const [postList, dispatchPostList] = useReducer(postListReducer, []);
+  const [fetching, setFectching] = useState(false);
+
   // THE MEHTODS----------------->
-  const addPost = (userId, postTitle, postBody, reactions, tags) => {
+  // now as the data is sent by us from the createpost so now we can send a whole object like "post"
+  const addPost = (post) => {
     // console.log(`${userId} ${postTitle} `);
     // just like we implemented delete post we will implement addPost
     dispatchPostList({
       type: "ADD_POST",
-      payload: {
-        id: Date.now(),
-        userID: userId,
-        title: postTitle,
-        body: postBody,
-        reactions: reactions,
-        tags: tags,
-      },
+      payload: post,
     });
   };
   const addInitialPost = (posts) => {
@@ -57,12 +53,33 @@ const PostListProvider = ({ children }) => {
       payload: { postID },
     });
   };
+  useEffect(() => {
+    setFectching(true);
+    const controller = new AbortController();
+    const signal = controller.signal;
+    fetch("https://dummyjson.com/posts", { signal })
+      .then((res) => res.json())
+      .then((data) => {
+        addInitialPost(data.posts);
+        setFectching(false);
+      })
+      .catch((error) => {
+        if (error.name === "AbortError") {
+          console.log("Fetch aborted");
+        } else {
+          console.error("Fetch error:", error);
+          setFectching(false); // Ensure state resets even on failure
+        }
+      });
+
+    return () => {
+      controller.abort();
+    };
+  }, []);
 
   return (
     // previously we were passing a default value initiaslised at the top
-    <PostList.Provider
-      value={{ postList, addPost, deletePost, addInitialPost }}
-    >
+    <PostList.Provider value={{ postList, addPost, deletePost, fetching }}>
       {children}
     </PostList.Provider>
   );
