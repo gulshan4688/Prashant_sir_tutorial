@@ -1,12 +1,13 @@
 import React from "react";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import HomeItem from "./components/HomeItem";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import BagSummary from "../components/BagSummary";
+import BagItem from "../components/BagItem";
 
-const App = () => {
+const Bag = () => {
   const item = {
     id: "001",
-    image:"/images/1.jpg",
+    image: "/images/1.jpg",
     company: "Carlton London",
     item_name: "Rhodium-Plated CZ Floral Studs",
     original_price: 1045,
@@ -21,15 +22,15 @@ const App = () => {
   };
   return (
     <>
-      <Header />
       <main>
-        <div className="items-container">
-          <HomeItem item={item} />
+        <div className="bag-page">
+          <BagItem item={item} />
+
+          <BagSummary />
         </div>
       </main>
-      <Footer />
     </>
   );
 };
 
-export default App;
+export default Bag;
